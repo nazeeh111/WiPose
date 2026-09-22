@@ -1,0 +1,32 @@
+menu "CSI Link"
+
+    choice CSI_LINK_SERIAL_BACKEND
+        prompt "Serial backend"
+        default CSI_LINK_SERIAL_UART0
+        help
+            CSI 프레임을 호스트로 내보내는 시리얼 백엔드.
+
+        config CSI_LINK_SERIAL_UART0
+            bool "UART0 (외장 USB-UART, CH340 등)"
+
+        config CSI_LINK_SERIAL_USB_JTAG
+            bool "USB Serial/JTAG (내장)"
+
+    endchoice
+
+    config CSI_LINK_UART_BAUD
+        int "UART0 baud rate"
+        depends on CSI_LINK_SERIAL_UART0
+        default 921600
+        help
+            130B 프레임 @ 103pps ≈ 13.4KB/s — 921600bps에서 여유 충분.
+
+    config CSI_LINK_DEFAULT_CHANNEL
+        int "기본 WiFi 채널 (NVS 미설정 시)"
+        range 1 13
+        default 6
+        help
+            콘솔/NVS로 변경 가능. 캠페인 전체에서 1회 고정 운용 권장
+            (채널 변경은 데이터 분포를 분리시킨다).
+
+endmenu

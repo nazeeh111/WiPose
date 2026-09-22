@@ -1,0 +1,14 @@
+# 링크 행렬 규약: H[i, j] = (rx_i, tx_j)  — 펌웨어→텐서까지 고정
+# 사용법: 이 파일을 boards.yaml 로 복사한 뒤 실측 값으로 교체.
+#   - com: 장치 관리자에서 확인한 보드별 COM 포트
+#   - mac: 플래시 후 콘솔 HELLO 응답의 mac 필드
+# 주의: CH340 류는 시리얼 번호가 없어 COM이 USB 물리 포트에 묶인다 —
+#   케이블/허브 포트 위치를 고정하고, 보드↔COM 대응을 확인해 보드에 라벨 부착 권장.
+boards:
+  - {id: tx0, role: tx, idx: 0, com: COM1, mac: "XX:XX:XX:XX:XX:01"}
+  - {id: tx1, role: tx, idx: 1, com: COM2, mac: "XX:XX:XX:XX:XX:02"}
+  - {id: tx2, role: tx, idx: 2, com: COM3, mac: "XX:XX:XX:XX:XX:03"}
+  - {id: rx0, role: rx, idx: 0, com: COM4, mac: "XX:XX:XX:XX:XX:04"}
+  - {id: rx1, role: rx, idx: 1, com: COM5, mac: "XX:XX:XX:XX:XX:05"}
+  - {id: rx2, role: rx, idx: 2, com: COM6, mac: "XX:XX:XX:XX:XX:06"}
+camera: {id: cam0, mount: "RX 클러스터 후방 0.65~0.95m", height_cm: 150}

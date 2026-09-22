@@ -1,0 +1,9 @@
+# train/ 세션 매니페스트 — 분할은 세션 단위 고정(시간 누수 금지).
+# 사용법: 이 파일을 train.yaml 로 복사한 뒤 세션 h5 경로를 기재.
+# 경로는 WSL2 ext4 사본 권장(/mnt/c 9P 경유 반복 I/O로 직접 학습 금지).
+# 단일 세션뿐이면 train/split_session.py 시간순 물리 분할(앞80/뒤20, 갭3s) 사용 —
+# 단, 교차 세션 검증 기준은 충족하지 못하므로 게이트 수치는 참고용.
+sessions:
+  - {h5: /path/to/data/SESSION-train.h5, role: train, type: example-t80}
+  - {h5: /path/to/data/SESSION-val.h5,   role: val,   type: example-v20}
+hyper: {batch: 64, epochs: 30, warmup: 2, lr: 1.0e-3, wd: 1.0e-4, knn_k: 5, seed: 0}

@@ -1,0 +1,15 @@
+# 공통 — host 캡처·파이프라인 (bridge/recorder/csi_pipe/tools)
+numpy
+h5py
+PyYAML
+msgpack
+paho-mqtt
+pyserial
+opencv-python
+
+# 학습·실시간 추론 — train/, rt/
+torch
+
+# 교사 라벨링 — teacher/ (RTMDet/RTMPose ONNX 체인, 첫 실행 시 모델 자동 다운로드)
+onnxruntime    # NVIDIA GPU 사용 시 onnxruntime-gpu 로 교체 권장
+rtmlib

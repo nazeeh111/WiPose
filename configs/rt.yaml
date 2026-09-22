@@ -1,0 +1,27 @@
+# rt/ 실시간 데모 설정
+tau_presence: 0.3        # presence 게이트 mean(ĉ)<τ → absent. 캘리브 전 잠정 — M2 후 S00 분포로 재설정
+ema_alpha: 0.5           # §11 EMA 평활
+settle_ms: 30            # 윈도 절단 전 대기 — USB 배칭 지터(§14 10~30ms) 흡수
+motion_window_s: 0.5     # 모델-프리 모션 에너지(링크 평균진폭 std) 창
+fall:                    # §10 — 전부 캘리브 전 잠정(라운드1 낙상으로만 캘리브)
+  theta_v: 0.4           # R1: hip y 회귀 기울기 임계 — fall-demo-01 실측 보정(낙상 기울기 p50 0.7, rt-handoff)
+  aspect_hi: 1.2         # R2: 직립 판정 (코어 bbox h/w, 픽셀 공간 — pck §9와 동일)
+  aspect_lo: 1.0         # R2: 누움 판정 — fall-demo-01 실측 보정(착지 후 0.54~1.25, rt-handoff)
+  transition_s: 1.5      # R2: 직립→누움 전환 허용 창
+  grace_s: 1.5           # absent 유예 — 낙상 순간 ĉ 일시 급락(<1s 실측)에 이력·IMPACT 보존(rt-handoff)
+  head_y: 0.7            # R3: head(nose) y 하위 30% 진입
+  confirm_s: 2.0         # IMPACT→ALARM 유지 확인 창
+  lying_ratio: 0.7       # 유지 창 내 누움 프레임 비율 하한
+  theta_still: 0.02      # 유지 창 pose 프레임간 이동 RMS 상한 (정규화)
+  theta_csi_still: 0.0   # CSI 모션 에너지 상한 — ≤0 = 미캘리브(CSI 조건 스킵+경고 1회).
+                         # 06-12 산출 시도 결과 보류: m15-cap1 실측 empty p95 11.8 / lie p95 12.0 /
+                         # stand p5 8.8 — 전 클래스 겹침. 패킷 평균진폭 std가 AGC·청크 잡음에
+                         # 지배되어 동작 분리 실패 → 지표 재설계(예: SC 패턴 분산) 후 라운드1 낙상으로 캘리브
+
+  refractory_s: 10.0     # ALARM 후 불응
+  release_hip_y: 0.6     # 해제: 기립 복귀 hip y 상한 (θ_up)
+  release_hold_s: 1.0    # 해제: 기립 유지 시간
+  absent_release_s: 5.0  # 해제: absent 지속(이탈)
+mqtt:
+  host: localhost        # WSL mirrored 전제 — 실패 시 Windows 호스트 IP를 --mqtt-host로
+  port: 1883

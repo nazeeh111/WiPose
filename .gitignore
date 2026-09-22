@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# ESP-IDF — sdkconfig는 생성 파일 (sdkconfig.defaults만 커밋)
+firmware/*/build/
+firmware/*/sdkconfig
+firmware/*/sdkconfig.old
+firmware/*/dependencies.lock
+firmware/*/managed_components/
+
+# 로컬 환경 전용 설정 — configs/*.example.yaml 을 복사해 작성
+configs/boards.yaml
+configs/train.yaml
+configs/pairing.json
+
+# 데이터·세션·로그·모델 (대용량, 개인 환경 캡처물)
+*.h5
+*.hdf5
+*.npz
+*.rawlog
+*.mp4
+*.log
+*.pt
+*.pth
+*.onnx
+host/sessions/
+host/logs/
+weights/
+runs/
+
+# OS / IDE / 로컬 도구 상태
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+.omc/
+.claude/
+
+.venv/
+.verification/
+__pycache__/
+*.pyc

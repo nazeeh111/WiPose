@@ -1,0 +1,31 @@
+# rt 라이브 — WSL 중계 경로(NAT) variant. 정본 rt.yaml과의 차이는 settle_ms 단 하나.
+#
+# 배경(06-12 실측): Windows mosquitto가 localhost 전용 + 방화벽이 WSL 인바운드 차단
+# → 라이브는 mosquitto → tools/mqtt_pump_wsl.py → WSL amqtt 2홉 중계로 수신.
+# 브리지 청크(~105ms 주기) + 중계 지연으로 절단 시점 t̂ 선행(tail_lead) p50 4ms /
+# p5 −37ms — settle 30ms(직결 USB 배칭 기준)로는 윈도가 미완성 절단되어 valid 0%.
+# settle 200ms로 절단을 늦춰 흡수(실측 후 산정: 청크 105 + 중계 ~40 + 여유).
+# 직결(mirrored networking 또는 Windows 단독) 복귀 시 이 파일 대신 rt.yaml 사용.
+tau_presence: 0.3        # presence 게이트 mean(ĉ)<τ → absent. 캘리브 전 잠정 — M2 후 S00 분포로 재설정
+ema_alpha: 0.5           # §11 EMA 평활
+settle_ms: 200           # ← rt.yaml(30)과 유일한 차이 — 중계 경로 지연 흡수
+motion_window_s: 0.5     # 모델-프리 모션 에너지(링크 평균진폭 std) 창
+fall:                    # §10 — 전부 캘리브 전 잠정(라운드1 낙상으로만 캘리브)
+  theta_v: 0.4           # R1: hip y 회귀 기울기 임계 — fall-demo-01 실측 보정(낙상 기울기 p50 0.7, rt-handoff-20260612)
+  aspect_hi: 1.2         # R2: 직립 판정 (코어 bbox h/w, 픽셀 공간 — pck §9와 동일)
+  aspect_lo: 1.0         # R2: 누움 판정 — fall-demo-01 실측 보정(착지 후 0.54~1.25, rt-handoff-20260612)
+  transition_s: 1.5      # R2: 직립→누움 전환 허용 창
+  grace_s: 1.5           # absent 유예 — 낙상 순간 ĉ 일시 급락(<1s 실측)에 이력·IMPACT 보존(rt-handoff-20260612)
+  head_y: 0.7            # R3: head(nose) y 하위 30% 진입
+  confirm_s: 2.0         # IMPACT→ALARM 유지 확인 창
+  lying_ratio: 0.7       # 유지 창 내 누움 프레임 비율 하한
+  theta_still: 0.02      # 유지 창 pose 프레임간 이동 RMS 상한 (정규화)
+  theta_csi_still: 0.0   # CSI 모션 에너지 상한 — ≤0 = 미캘리브(CSI 조건 스킵+경고 1회).
+                         # 상세는 rt.yaml 주석 참조
+  refractory_s: 10.0     # ALARM 후 불응
+  release_hip_y: 0.6     # 해제: 기립 복귀 hip y 상한 (θ_up)
+  release_hold_s: 1.0    # 해제: 기립 유지 시간
+  absent_release_s: 5.0  # 해제: absent 지속(이탈)
+mqtt:
+  host: localhost        # WSL 측 amqtt 중계 브로커 (tools/mqtt_pump_wsl.py 도킹)
+  port: 1883

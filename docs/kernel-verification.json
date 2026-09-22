@@ -1,0 +1,30 @@
+{
+  "exact_kernel_parity": true,
+  "scope": "Seeded random weights, reduced-width CPU model; not trained inference accuracy",
+  "outputs": {
+    "crc16_reference": 10673,
+    "head_False": {
+      "sha256": "0786a22b6ec10ed2d463674070abbf04c2eace5743d6d794e282a0ab96a3384a",
+      "shape": [
+        1,
+        3,
+        18,
+        18
+      ]
+    },
+    "head_True": {
+      "sha256": "1cd2fa5b5cde35e17f4b1c025c58132fae6697bf5a58d37a36caa17d3a3146da",
+      "shape": [
+        1,
+        3,
+        18
+      ]
+    },
+    "motion_energy": 1.707825127659933,
+    "presence": [
+      false,
+      true,
+      true
+    ]
+  }
+}
