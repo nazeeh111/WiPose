@@ -17,3 +17,5 @@
 License of this repository: [MIT](LICENSE). Note that the parts of
 `train/csi_train/model.py` derived from the original remain under the original
 authors' copyright, independent of this repository's license.
+
+The source/additions boundary and unverified redistribution grant for the WiSPPN-derived portions are recorded in [NOTICE.md](NOTICE.md). Repository-level MIT does not replace those rights.

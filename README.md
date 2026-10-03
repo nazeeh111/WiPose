@@ -1,6 +1,6 @@
 # WiPose
 
-**Development history:** Developed locally using Git before publication. These projects were published to GitHub together, so similar upload dates do not indicate when development began.
+This repository packages [csi-pose](https://github.com/sel00000/csi-pose/tree/02b1001590beea8e7d6daac57a4d8b4a345eb50f), by **Kyung-Bo Kim, Hyun-Seok Jang, So-Hyeon Kim and Gyu-Chae Jung**, for ESP32-S3 WiFi pose-estimation research. WiPose adds a command-line facade, source/CPU parity checks and documentation. The original methods, datasets and reported research results belong to the cited source. [Source and additions](NOTICE.md).
 
 **WiFi channel measurements into 18-joint pose estimates.**
 
