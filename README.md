@@ -1,8 +1,8 @@
 # WiPose
 
-This repository packages [csi-pose](https://github.com/sel00000/csi-pose/tree/02b1001590beea8e7d6daac57a4d8b4a345eb50f), by **Kyung-Bo Kim, Hyun-Seok Jang, So-Hyeon Kim and Gyu-Chae Jung**, for ESP32-S3 WiFi pose-estimation research. WiPose adds a command-line facade, source/CPU parity checks and documentation. The original methods, datasets and reported research results belong to the cited source. [Source and additions](NOTICE.md).
-
 **WiFi channel measurements into 18-joint pose estimates.**
+
+WiPose adds a command-line entry point, source and CPU comparison checks, and setup documentation.
 
 The pipeline includes ESP32-S3 firmware, CSI capture and synchronization, teacher labeling, model training, and real-time pose/fall visualization. The existing modules, formats, parameters, and firmware remain intact.
 
@@ -25,7 +25,9 @@ python wipose.py train --help
 
 The original recorded demonstrations, figures, quantitative results, and scope caveats remain in the [reference guide](docs/REFERENCE.md). They were not reproduced as part of this packaging work. Fall detection is a research demonstration, not a validated safety or medical system.
 
-## Third-party components
+## Source and third-party components
+
+Based on [csi-pose](https://github.com/sel00000/csi-pose/tree/02b1001590beea8e7d6daac57a4d8b4a345eb50f) by **Kyung-Bo Kim, Hyun-Seok Jang, So-Hyeon Kim and Gyu-Chae Jung**. [Source and contribution details](NOTICE.md).
 
 The WiSPPN-derived model and teacher-model notices remain in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and in their source headers. The project license is retained in [LICENSE](LICENSE).
 
